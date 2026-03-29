@@ -294,14 +294,12 @@ body {
 
 <script>
 /* ══════════════════════════════════════════
-   CONFIG
-   Gemini called directly — avoids CORS issue that occurs when
-   calling via Supabase Edge Function from non-Netlify origins.
-   The ?key= param approach requires no Authorization header,
-   so no CORS preflight is triggered.
+   CONFIG — Supabase Edge Function proxy (ai-proxy)
+   Works from any real HTTP origin: GitHub Pages, Netlify, etc.
+   Uses the same paid-quota key as the main StarLearn app.
 ══════════════════════════════════════════ */
-const GEMINI_KEY = 'AIzaSyCSeMMUHS9l-N5Y2V_l8IAadnAjS7Pxh6g';
-const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_KEY}`;
+const SUPABASE_URL = 'https://zaagldgqqpfypjlgfuix.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InphYWdsZGdxcXBmeXBqbGdmdWl4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ2MjUxOTMsImV4cCI6MjA5MDIwMTE5M30.uz1G6JOPfituQ34wBbkIHgACuLC7NgOHEUGnvFs37O0';
 
 /* ══════════════════════════════════════════
    SLIDE DEFINITIONS
@@ -487,9 +485,9 @@ function speakWord(word) {
 }
 
 /* ══════════════════════════════════════════
-   GEMINI — direct REST call (no CORS issue)
-   Calling via ?key= param means no Authorization header
-   is sent, so the browser skips the CORS preflight entirely.
+   GEMINI — via Supabase Edge Function (ai-proxy)
+   Works from any real HTTP origin (GitHub Pages, Netlify).
+   Uses the paid quota key, same as the main StarLearn app.
 ══════════════════════════════════════════ */
 async function fetchExplanation(slideIdx) {
   const cacheKey = `ela_slide_${slideIdx}_${getTodayDate()}`;
@@ -502,20 +500,17 @@ async function fetchExplanation(slideIdx) {
   const prompt = SLIDES[slideIdx].geminiPrompt;
 
   try {
-    const res = await fetch(GEMINI_URL, {
+    const res = await fetch(SUPABASE_URL + '/functions/v1/ai-proxy', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + SUPABASE_KEY,
+      },
       body: JSON.stringify({
-        contents: [{ parts: [{ text: prompt }] }],
-        generationConfig: {
-          maxOutputTokens: 300,
-          temperature: 0.8,
-        },
-        systemInstruction: {
-          parts: [{
-            text: 'You are a warm, friendly primary school teacher. Respond with ONLY the spoken explanation — no headings, no bullet points, no markdown, no asterisks. Just natural flowing sentences as if speaking aloud to a child.'
-          }]
-        }
+        model: 'gemini-2.0-flash',
+        max_tokens: 300,
+        system: 'You are a warm, friendly primary school teacher. Respond with ONLY the spoken explanation — no headings, no bullet points, no markdown, no asterisks. Just natural flowing sentences as if speaking aloud to a child.',
+        messages: [{ role: 'user', content: prompt }],
       }),
     });
 
@@ -526,7 +521,7 @@ async function fetchExplanation(slideIdx) {
     }
 
     const data = await res.json();
-    const text = data.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || '';
+    const text = data.content?.find(b => b.type === 'text')?.text?.trim() || '';
 
     if (text) {
       // Clean up any stray markdown that slips through
