@@ -10,264 +10,92 @@
 body {
   font-family: 'Nunito', sans-serif;
   background: linear-gradient(160deg, #1e3a5f 0%, #db2877 30%, #fdf2f8 30%);
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+  min-height: 100vh; display: flex; flex-direction: column;
 }
-
-/* ── Header ── */
 .app-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 14px 18px;
-  flex-shrink: 0;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 14px 18px; flex-shrink: 0;
 }
 .logo-text { font-family:'Baloo 2',cursive; font-size:1.1rem; font-weight:800; color:white; }
 .topic-pill {
-  background: rgba(255,255,255,0.22);
-  color: white;
-  border-radius: 99px;
-  padding: 4px 14px;
-  font-size: 0.8rem;
-  font-weight: 700;
+  background: rgba(255,255,255,0.22); color: white;
+  border-radius: 99px; padding: 4px 14px; font-size: 0.8rem; font-weight: 700;
 }
-
-/* ── Slide dots ── */
 .dots-row {
-  display: flex;
-  justify-content: center;
-  gap: 7px;
-  padding: 6px 0 10px;
-  flex-shrink: 0;
+  display: flex; justify-content: center; gap: 7px;
+  padding: 6px 0 10px; flex-shrink: 0;
 }
-.dot {
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.35);
-  transition: all 0.3s;
-}
-.dot.active {
-  background: white;
-  width: 22px;
-  border-radius: 99px;
-}
-
-/* ── Main content ── */
-.slide-scroll {
-  flex: 1;
-  overflow-y: auto;
-  padding: 0 16px 16px;
-}
-
+.dot { width:8px; height:8px; border-radius:50%; background:rgba(255,255,255,0.35); transition:all 0.3s; }
+.dot.active { background:white; width:22px; border-radius:99px; }
+.slide-scroll { flex:1; overflow-y:auto; padding:0 16px 16px; }
 .slide-card {
-  background: white;
-  border-radius: 22px;
-  padding: 20px 18px;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.1);
-  margin-bottom: 12px;
+  background:white; border-radius:22px; padding:20px 18px;
+  box-shadow:0 4px 24px rgba(0,0,0,0.1); margin-bottom:12px;
 }
-
 .slide-badge {
-  display: inline-block;
-  border-radius: 99px;
-  padding: 4px 14px;
-  font-size: 0.72rem;
-  font-weight: 800;
-  margin-bottom: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  display:inline-block; border-radius:99px; padding:4px 14px;
+  font-size:0.72rem; font-weight:800; margin-bottom:10px;
+  text-transform:uppercase; letter-spacing:0.5px;
 }
-
-.slide-title {
-  font-family: 'Baloo 2', cursive;
-  font-size: 1.6rem;
-  font-weight: 800;
-  color: #1f2937;
-  margin-bottom: 3px;
-  line-height: 1.2;
-}
-.slide-subtitle {
-  font-size: 0.85rem;
-  color: #6b7280;
-  font-weight: 600;
-  margin-bottom: 14px;
-}
-
-/* ── AI explanation bubble ── */
+.slide-title { font-family:'Baloo 2',cursive; font-size:1.6rem; font-weight:800; color:#1f2937; margin-bottom:3px; line-height:1.2; }
+.slide-subtitle { font-size:0.85rem; color:#6b7280; font-weight:600; margin-bottom:14px; }
 .ai-bubble {
-  border-radius: 16px;
-  padding: 14px 16px;
-  font-size: 0.92rem;
-  line-height: 1.7;
-  color: #1f2937;
-  font-weight: 600;
-  margin-bottom: 12px;
-  min-height: 70px;
-  position: relative;
-  border: 2px solid transparent;
-  transition: border-color 0.3s;
+  border-radius:16px; padding:14px 16px; font-size:0.92rem; line-height:1.7;
+  color:#1f2937; font-weight:600; margin-bottom:12px; min-height:70px;
+  border:2px solid transparent; transition:border-color 0.3s;
+  background:#f9fafb;
 }
-.ai-bubble.speaking {
-  border-color: #db2877;
-}
-.ai-loading {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: #9ca3af;
-  font-size: 0.88rem;
-  font-style: italic;
-}
-.dot-pulse {
-  display: flex; gap: 4px; align-items: center;
-}
-.dot-pulse span {
-  width: 6px; height: 6px; border-radius: 50%;
-  background: #db2877;
-  animation: pulse 0.8s ease-in-out infinite;
-}
-.dot-pulse span:nth-child(2) { animation-delay: 0.2s; }
-.dot-pulse span:nth-child(3) { animation-delay: 0.4s; }
-@keyframes pulse {
-  0%,100% { transform: scale(0.6); opacity: 0.4; }
-  50%      { transform: scale(1);   opacity: 1; }
-}
-
-/* ── Example chips ── */
-.chip-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 7px;
-  margin-bottom: 12px;
-}
-.chip {
-  border-radius: 10px;
-  padding: 5px 13px;
-  font-size: 0.85rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: transform 0.15s;
-}
-.chip:active { transform: scale(0.95); }
-
-/* ── Example sentence ── */
-.example-card {
-  border-radius: 14px;
-  padding: 12px 14px;
-  margin-bottom: 12px;
-  border: 1.5px dashed rgba(0,0,0,0.1);
-}
-.example-label {
-  font-size: 0.7rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-bottom: 6px;
-  color: #9ca3af;
-}
-.example-text {
-  font-size: 0.95rem;
-  color: #1f2937;
-  font-weight: 700;
-  line-height: 1.6;
-}
-.example-text mark {
-  border-radius: 5px;
-  padding: 1px 5px;
-  font-style: normal;
-}
-
-/* ── Tip ── */
-.tip-box {
-  border-radius: 12px;
-  padding: 10px 13px;
-  font-size: 0.82rem;
-  font-weight: 700;
-  line-height: 1.5;
-}
-
-/* ── CTA last slide ── */
+.ai-bubble.speaking { border-color:#db2877; }
+.ai-loading { display:flex; align-items:center; gap:8px; color:#9ca3af; font-size:0.88rem; font-style:italic; }
+.dot-pulse { display:flex; gap:4px; align-items:center; }
+.dot-pulse span { width:6px; height:6px; border-radius:50%; background:#db2877; animation:pulse 0.8s ease-in-out infinite; }
+.dot-pulse span:nth-child(2) { animation-delay:0.2s; }
+.dot-pulse span:nth-child(3) { animation-delay:0.4s; }
+@keyframes pulse { 0%,100%{transform:scale(0.6);opacity:0.4;} 50%{transform:scale(1);opacity:1;} }
+.chip-row { display:flex; flex-wrap:wrap; gap:7px; margin-bottom:12px; }
+.chip { border-radius:10px; padding:5px 13px; font-size:0.85rem; font-weight:700; cursor:pointer; transition:transform 0.15s; }
+.chip:active { transform:scale(0.95); }
+.example-card { border-radius:14px; padding:12px 14px; margin-bottom:12px; border:1.5px dashed rgba(0,0,0,0.1); }
+.example-label { font-size:0.7rem; font-weight:800; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:6px; color:#9ca3af; }
+.example-text { font-size:0.95rem; color:#1f2937; font-weight:700; line-height:1.6; }
+.example-text mark { border-radius:5px; padding:1px 5px; font-style:normal; }
+.tip-box { border-radius:12px; padding:10px 13px; font-size:0.82rem; font-weight:700; line-height:1.5; }
 .cta-card {
-  background: linear-gradient(135deg, #1e3a5f, #db2877);
-  border-radius: 18px;
-  padding: 20px;
-  text-align: center;
-  margin-bottom: 12px;
+  background:linear-gradient(135deg,#1e3a5f,#db2877); border-radius:18px;
+  padding:20px; text-align:center; margin-bottom:12px;
 }
-.cta-card h2 {
-  font-family: 'Baloo 2', cursive;
-  color: white;
-  font-size: 1.3rem;
-  margin-bottom: 6px;
-}
-.cta-card p {
-  color: rgba(255,255,255,0.85);
-  font-size: 0.88rem;
-  font-weight: 600;
-}
-
-/* ── Bottom controls ── */
+.cta-card h2 { font-family:'Baloo 2',cursive; color:white; font-size:1.3rem; margin-bottom:6px; }
+.cta-card p { color:rgba(255,255,255,0.85); font-size:0.88rem; font-weight:600; }
 .bottom-controls {
-  background: white;
-  border-radius: 22px 22px 0 0;
-  padding: 14px 18px 18px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-shrink: 0;
-  box-shadow: 0 -4px 20px rgba(0,0,0,0.08);
+  background:white; border-radius:22px 22px 0 0; padding:14px 18px 18px;
+  display:flex; align-items:center; gap:12px; flex-shrink:0;
+  box-shadow:0 -4px 20px rgba(0,0,0,0.08);
 }
 .speak-btn {
-  width: 44px; height: 44px;
-  border-radius: 50%;
-  border: 2px solid #fce7f3;
-  background: white;
-  font-size: 1.2rem;
-  cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-  transition: all 0.2s;
+  width:44px; height:44px; border-radius:50%; border:2px solid #fce7f3;
+  background:white; font-size:1.2rem; cursor:pointer;
+  display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  transition:all 0.2s;
 }
-.speak-btn.speaking {
-  background: #fce7f3;
-  border-color: #db2877;
-  animation: speakPulse 1s ease-in-out infinite;
-}
-@keyframes speakPulse {
-  0%,100% { box-shadow: 0 0 0 0 rgba(219,40,119,0.3); }
-  50%      { box-shadow: 0 0 0 8px rgba(219,40,119,0); }
-}
-.nav-row {
-  display: flex; gap: 8px; flex: 1; justify-content: flex-end;
-}
+.speak-btn.speaking { background:#fce7f3; border-color:#db2877; animation:speakPulse 1s ease-in-out infinite; }
+@keyframes speakPulse { 0%,100%{box-shadow:0 0 0 0 rgba(219,40,119,0.3);} 50%{box-shadow:0 0 0 8px rgba(219,40,119,0);} }
+.nav-row { display:flex; gap:8px; flex:1; justify-content:flex-end; }
 .btn-back {
-  background: #f3f4f6;
-  border: none;
-  border-radius: 12px;
-  padding: 11px 18px;
-  font-family: 'Nunito', sans-serif;
-  font-size: 0.9rem;
-  font-weight: 700;
-  color: #374151;
-  cursor: pointer;
-  transition: opacity 0.2s;
+  background:#f3f4f6; border:none; border-radius:12px; padding:11px 18px;
+  font-family:'Nunito',sans-serif; font-size:0.9rem; font-weight:700; color:#374151; cursor:pointer;
 }
-.btn-back:disabled { opacity: 0.3; cursor: default; }
+.btn-back:disabled { opacity:0.3; cursor:default; }
 .btn-next {
-  background: linear-gradient(135deg, #1e3a5f, #db2877);
-  border: none;
-  border-radius: 12px;
-  padding: 11px 22px;
-  font-family: 'Baloo 2', cursive;
-  font-size: 0.95rem;
-  font-weight: 800;
-  color: white;
-  cursor: pointer;
-  box-shadow: 0 4px 14px rgba(219,40,119,0.35);
-  transition: opacity 0.2s, transform 0.15s;
+  background:linear-gradient(135deg,#1e3a5f,#db2877); border:none; border-radius:12px;
+  padding:11px 22px; font-family:'Baloo 2',cursive; font-size:0.95rem; font-weight:800;
+  color:white; cursor:pointer; box-shadow:0 4px 14px rgba(219,40,119,0.35);
+  transition:opacity 0.2s, transform 0.15s;
 }
-.btn-next:hover { opacity: 0.92; transform: translateY(-1px); }
+.btn-next:hover { opacity:0.92; transform:translateY(-1px); }
+.voice-panel {
+  display:none; background:white; margin:0 16px 10px;
+  border-radius:16px; padding:14px 16px; box-shadow:0 2px 12px rgba(0,0,0,0.08);
+}
 </style>
 </head>
 <body>
@@ -278,23 +106,16 @@ body {
     <button onclick="toggleVoicePicker()"
       style="background:rgba(255,255,255,0.22);border:none;border-radius:99px;
              padding:5px 12px;color:white;font-family:'Nunito',sans-serif;
-             font-size:0.78rem;font-weight:700;cursor:pointer;">
-      🎙️ Voice
-    </button>
-    <div class="topic-pill" id="topic-pill">📖 English · Monday</div>
+             font-size:0.78rem;font-weight:700;cursor:pointer;">🎙️ Voice</button>
+    <div class="topic-pill" id="topic-pill">📖 English</div>
   </div>
 </div>
 
 <div class="dots-row" id="dots-row"></div>
 
-<!-- Voice picker panel — hidden by default -->
-<div id="voice-panel" style="display:none;background:white;margin:0 16px 10px;
-  border-radius:16px;padding:14px 16px;box-shadow:0 2px 12px rgba(0,0,0,0.08);">
-</div>
+<div class="voice-panel" id="voice-panel"></div>
 
-<div class="slide-scroll" id="slide-scroll">
-  <!-- slides rendered here -->
-</div>
+<div class="slide-scroll" id="slide-scroll"></div>
 
 <div class="bottom-controls">
   <button class="speak-btn" id="speak-btn" onclick="replaySpeak()">🔊</button>
@@ -306,298 +127,264 @@ body {
 </div>
 
 <script>
-/* ══════════════════════════════════════════
-   CONFIG — Supabase Edge Function proxy (ai-proxy)
-   Works from any real HTTP origin: GitHub Pages, Netlify, etc.
-   Uses the same paid-quota key as the main StarLearn app.
-══════════════════════════════════════════ */
+/* ════════════════════════════════════════
+   CONFIG
+════════════════════════════════════════ */
 const SUPABASE_URL = 'https://zaagldgqqpfypjlgfuix.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InphYWdsZGdxcXBmeXBqbGdmdWl4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ2MjUxOTMsImV4cCI6MjA5MDIwMTE5M30.uz1G6JOPfituQ34wBbkIHgACuLC7NgOHEUGnvFs37O0';
 
-/* ══════════════════════════════════════════
-   SLIDE DEFINITIONS
-══════════════════════════════════════════ */
-const TOPIC = {
-  name: 'Nouns, Verbs, Adjectives & Adverbs',
-  day: 'Monday',
-};
+/* ════════════════════════════════════════
+   SLIDE TEMPLATES — only colours & structure.
+   ALL content (explanation, chips, example, tip)
+   is generated fresh by Gemini every session.
+════════════════════════════════════════ */
+const SLIDE_TEMPLATES = [
+  {
+    badge:'Hi Vivan! 👋', badgeBg:'#ede9fe', badgeColor:'#5b21b6',
+    title:'Words have jobs!', subtitle:'Every word does something different in a sentence.',
+    theme:{ chipBg:'#ede9fe', chipColor:'#5b21b6', exBg:'#f5f3ff', markBg:'#c4b5fd', markColor:'#3c3489', tipBg:'#f5f3ff', tipColor:'#4c1d95' },
+    isIntro:true, isLast:false,
+    aiPrompt: `You are a warm teacher explaining English to Vivan, a 7-year-old in Texas. English is his second language.
 
-const SLIDES = [
-  {
-    badge: 'Hi Vivan! 👋',
-    badgeBg: '#ede9fe', badgeColor: '#5b21b6',
-    title: "Words have jobs!",
-    subtitle: "Every word in a sentence does something different.",
-    chips: [],
-    example: null,
-    tip: null,
-    geminiPrompt: `You are a warm, friendly teacher explaining English to Vivan, a 7-year-old boy in Texas. English is his second language. In 3-4 natural, conversational sentences, introduce today's lesson topic: "Nouns, Verbs, Adjectives and Adverbs". Tell him why these four types of words matter and get him excited to learn. Use his name once. Sound like a real teacher talking to a child, not a textbook. No lists.`,
-    isLast: false,
+Generate a JSON object with these exact keys:
+{
+  "explanation": "3-4 conversational sentences introducing today's lesson on Nouns, Verbs, Adjectives and Adverbs. Use Vivan's name once. Get him excited. Sound like a real teacher, not a textbook. No lists.",
+  "chips": ["6 fun example words — a mix of nouns, verbs, adjectives, adverbs that a 7-year-old would know"],
+  "example": "One short colourful sentence using at least 2 of the chip words",
+  "highlights": ["the words from the example sentence to highlight — pick the most interesting ones"],
+  "tip": "One fun memory trick to remember that words have different jobs, starting with a lightbulb emoji 💡"
+}
+
+Return ONLY valid JSON. No markdown, no backticks, no explanation outside the JSON.`
   },
   {
-    badge: 'Word type 1 of 4',
-    badgeBg: '#ede9fe', badgeColor: '#5b21b6',
-    title: 'Noun',
-    subtitle: 'A person, place, or thing',
-    chips: ['Vivan', 'dog', 'school', 'park', 'apple', 'India'],
-    chipBg: '#ede9fe', chipColor: '#5b21b6',
-    example: {
-      sentence: 'The <mark style="background:#c4b5fd;color:#3c3489;">dog</mark> ran to the <mark style="background:#c4b5fd;color:#3c3489;">park</mark> after <mark style="background:#c4b5fd;color:#3c3489;">school</mark>.',
-      bg: '#f5f3ff',
-    },
-    tip: { text: '💡 Trick: if you can say "the ___" in front of it — it is probably a noun!', bg: '#f5f3ff', color: '#4c1d95' },
-    geminiPrompt: `You are a warm, friendly teacher explaining English to Vivan, a 7-year-old boy in Texas. English is his second language. In 3-4 natural conversational sentences, explain what a NOUN is. Use simple everyday examples he would know — like dog, school, park, his name Vivan. Mention the example sentence "The dog ran to the park after school" and point out the nouns in it. End with the trick: if you can say "the" in front of it, it is usually a noun. Sound warm and encouraging, like a real teacher. No lists, no bullet points.`,
-    isLast: false,
+    badge:'Word type 1 of 4', badgeBg:'#ede9fe', badgeColor:'#5b21b6',
+    title:'Noun', subtitle:'A person, place, animal, or thing',
+    theme:{ chipBg:'#ede9fe', chipColor:'#5b21b6', exBg:'#f5f3ff', markBg:'#c4b5fd', markColor:'#3c3489', tipBg:'#f5f3ff', tipColor:'#4c1d95' },
+    isIntro:false, isLast:false,
+    aiPrompt: `You are a warm teacher explaining NOUNS to Vivan, a 7-year-old in Texas. English is his second language.
+
+Generate a JSON object with these exact keys:
+{
+  "explanation": "3-4 conversational sentences explaining what a NOUN is. Use a fresh real-world example he would relate to — like food, animals, sports, family, school. Do NOT use the same examples every time. Sound like a real teacher chatting with a child.",
+  "chips": ["6 varied nouns — mix of people, places, animals, things that are fun and relatable to a 7-year-old boy"],
+  "example": "One short vivid sentence using 2-3 of the chip words as nouns",
+  "highlights": ["the noun words from the sentence to highlight"],
+  "tip": "One clever memory trick for remembering what a noun is, starting with 💡. Make it different each time — rhyme, story, or silly analogy."
+}
+
+Return ONLY valid JSON. No markdown, no backticks, no extra text.`
   },
   {
-    badge: 'Word type 2 of 4',
-    badgeBg: '#dcfce7', badgeColor: '#15803d',
-    title: 'Verb',
-    subtitle: 'An action word — what someone does',
-    chips: ['ran', 'jumped', 'ate', 'thinks', 'is', 'plays'],
-    chipBg: '#dcfce7', chipColor: '#15803d',
-    example: {
-      sentence: 'Vivan <mark style="background:#86efac;color:#14532d;">ran</mark> fast and then <mark style="background:#86efac;color:#14532d;">ate</mark> his lunch.',
-      bg: '#f0fdf4',
-    },
-    tip: { text: '💡 Trick: ask "what is happening?" — the answer is always the verb!', bg: '#f0fdf4', color: '#14532d' },
-    geminiPrompt: `You are a warm, friendly teacher explaining English to Vivan, a 7-year-old boy in Texas. English is his second language. In 3-4 natural conversational sentences, explain what a VERB is. Use fun active examples — running, jumping, eating. Use the example sentence "Vivan ran fast and then ate his lunch" and point out the verbs. Give the trick: ask "what is happening?" and the answer is the verb. Sound like a real teacher chatting with a child, enthusiastic and simple. No lists.`,
-    isLast: false,
+    badge:'Word type 2 of 4', badgeBg:'#dcfce7', badgeColor:'#15803d',
+    title:'Verb', subtitle:'An action or doing word',
+    theme:{ chipBg:'#dcfce7', chipColor:'#15803d', exBg:'#f0fdf4', markBg:'#86efac', markColor:'#14532d', tipBg:'#f0fdf4', tipColor:'#14532d' },
+    isIntro:false, isLast:false,
+    aiPrompt: `You are a warm teacher explaining VERBS to Vivan, a 7-year-old in Texas. English is his second language.
+
+Generate a JSON object with these exact keys:
+{
+  "explanation": "3-4 conversational sentences explaining what a VERB is. Use fresh, active, exciting examples he relates to — like sports, eating, playing, running. Make a different example every time. Enthusiastic and simple.",
+  "chips": ["6 action verbs that a 7-year-old boy would love — energetic, fun, varied"],
+  "example": "One exciting sentence using 2-3 of the chip words as verbs — make it funny or surprising",
+  "highlights": ["the verb words from the sentence to highlight"],
+  "tip": "One fun memory trick for remembering what a verb is, starting with 💡. Make it a different trick each time."
+}
+
+Return ONLY valid JSON. No markdown, no backticks, no extra text.`
   },
   {
-    badge: 'Word type 3 of 4',
-    badgeBg: '#fef3c7', badgeColor: '#92400e',
-    title: 'Adjective',
-    subtitle: 'Describes a noun — makes it more interesting',
-    chips: ['big', 'tiny', 'red', 'happy', 'fluffy', 'cold'],
-    chipBg: '#fef3c7', chipColor: '#92400e',
-    example: {
-      sentence: 'The <mark style="background:#fcd34d;color:#78350f;">big</mark> brown dog chased a <mark style="background:#fcd34d;color:#78350f;">tiny</mark> <mark style="background:#fcd34d;color:#78350f;">red</mark> ball.',
-      bg: '#fffbeb',
-    },
-    tip: { text: '💡 Trick: adjectives sit right next to the noun they describe — the BIG dog, the TINY ball.', bg: '#fffbeb', color: '#78350f' },
-    geminiPrompt: `You are a warm, friendly teacher explaining English to Vivan, a 7-year-old boy in Texas. English is his second language. In 3-4 natural conversational sentences, explain what an ADJECTIVE is. Explain how it makes language colourful and interesting. Use the example sentence "The big brown dog chased a tiny red ball" and point out the adjectives. Give the trick: adjectives usually sit right next to the noun they describe. Be enthusiastic and conversational, like a real teacher. No lists.`,
-    isLast: false,
+    badge:'Word type 3 of 4', badgeBg:'#fef3c7', badgeColor:'#92400e',
+    title:'Adjective', subtitle:'Describes a noun — makes it more interesting',
+    theme:{ chipBg:'#fef3c7', chipColor:'#92400e', exBg:'#fffbeb', markBg:'#fcd34d', markColor:'#78350f', tipBg:'#fffbeb', tipColor:'#78350f' },
+    isIntro:false, isLast:false,
+    aiPrompt: `You are a warm teacher explaining ADJECTIVES to Vivan, a 7-year-old in Texas. English is his second language.
+
+Generate a JSON object with these exact keys:
+{
+  "explanation": "3-4 conversational sentences explaining what an ADJECTIVE is. Show how it makes boring sentences colourful. Use fresh examples each time — animals, food, toys, weather. Keep it vivid and fun.",
+  "chips": ["6 descriptive adjectives that paint a picture — colours, sizes, feelings, textures"],
+  "example": "One vivid sentence using 2-3 of the chip words as adjectives — make it imaginative",
+  "highlights": ["the adjective words from the sentence to highlight"],
+  "tip": "One memorable trick for remembering what an adjective is, starting with 💡. Try a different approach each time — a rhyme, a question, or a silly rule."
+}
+
+Return ONLY valid JSON. No markdown, no backticks, no extra text.`
   },
   {
-    badge: 'Word type 4 of 4',
-    badgeBg: '#e0f2fe', badgeColor: '#0c4a6e',
-    title: 'Adverb',
-    subtitle: 'Describes a verb — tells us how, when or where',
-    chips: ['quickly', 'loudly', 'slowly', 'never', 'always', 'very'],
-    chipBg: '#e0f2fe', chipColor: '#0c4a6e',
-    example: {
-      sentence: 'Vivan <mark style="background:#7dd3fc;color:#0c4a6e;">quickly</mark> ran inside and <mark style="background:#7dd3fc;color:#0c4a6e;">loudly</mark> called for mum.',
-      bg: '#f0f9ff',
-    },
-    tip: { text: '💡 Trick: most adverbs end in -ly! Quick → quickly. Loud → loudly. Slow → slowly.', bg: '#f0f9ff', color: '#0c4a6e' },
-    geminiPrompt: `You are a warm, friendly teacher explaining English to Vivan, a 7-year-old boy in Texas. English is his second language. In 3-4 natural conversational sentences, explain what an ADVERB is and how it is different from an adjective. Use the example "Vivan quickly ran inside and loudly called for mum". Point out that quickly and loudly describe HOW he did things. Give the -ly trick. Then wrap up by congratulating Vivan on learning all four word types and tell him the quiz is about to start. Sound warm, celebratory and natural. No lists.`,
-    isLast: true,
+    badge:'Word type 4 of 4', badgeBg:'#e0f2fe', badgeColor:'#0c4a6e',
+    title:'Adverb', subtitle:'Describes a verb — tells us how, when, or where',
+    theme:{ chipBg:'#e0f2fe', chipColor:'#0c4a6e', exBg:'#f0f9ff', markBg:'#7dd3fc', markColor:'#0c4a6e', tipBg:'#f0f9ff', tipColor:'#0c4a6e' },
+    isIntro:false, isLast:true,
+    aiPrompt: `You are a warm teacher explaining ADVERBS to Vivan, a 7-year-old in Texas. English is his second language.
+
+Generate a JSON object with these exact keys:
+{
+  "explanation": "3-4 conversational sentences explaining what an ADVERB is and how it tells us HOW, WHEN, or WHERE something happens. Use fresh action-based examples. End by congratulating Vivan on learning all 4 word types and tell him the quiz is next.",
+  "chips": ["6 adverbs — mix of -ly words and others like never, always, very, here, now"],
+  "example": "One fun sentence using 2 of the chip words as adverbs — make it active and vivid",
+  "highlights": ["the adverb words from the sentence to highlight"],
+  "tip": "One clever trick for remembering adverbs, starting with 💡 — the -ly trick or another fresh angle each time."
+}
+
+Return ONLY valid JSON. No markdown, no backticks, no extra text.`
   },
 ];
 
-/* ══════════════════════════════════════════
+/* ════════════════════════════════════════
    STATE
-══════════════════════════════════════════ */
+════════════════════════════════════════ */
 let currentSlide = 0;
-let slideTexts   = {};
+let slideData    = {};   // { idx: { explanation, chips, example, highlights, tip } }
 let synth        = window.speechSynthesis;
 let voices       = [];
 let isSpeaking   = false;
 
-/* ══════════════════════════════════════════
-   VOICE SETUP — iPad Safari optimised
-   Key insight: on iPad Safari the best sounding voices are
-   the "enhanced" en-GB or en-AU neural voices (Moira, Tessa,
-   Karen, Daniel). en-US Samantha is available but sounds more
-   robotic than the others on iOS 16+.
-   Strategy:
-   1. Prefer named high-quality neural voices by priority list
-   2. Speak the WHOLE paragraph as ONE utterance (not split)
-      — splitting causes unnatural gaps on Safari
-   3. Rate 0.82, pitch 1.0 — sounds most natural on iPad
-   4. Let voices load async (Safari loads them late)
-══════════════════════════════════════════ */
-function loadVoices() {
-  voices = synth.getVoices();
+/* ════════════════════════════════════════
+   VOICE — wait properly for Chrome to load voices
+   Chrome loads voices async. We poll until they arrive,
+   then pick Google US English which sounds natural.
+════════════════════════════════════════ */
+function getVoices() {
+  return new Promise(resolve => {
+    let v = synth.getVoices();
+    if (v.length) { voices = v; resolve(v); return; }
+    // Poll every 100ms up to 3 seconds
+    let attempts = 0;
+    const interval = setInterval(() => {
+      v = synth.getVoices();
+      attempts++;
+      if (v.length || attempts > 30) {
+        clearInterval(interval);
+        voices = v;
+        resolve(v);
+      }
+    }, 100);
+  });
 }
-loadVoices();
-if (synth.onvoiceschanged !== undefined) {
-  synth.onvoiceschanged = () => { voices = synth.getVoices(); };
-}
-
-// Also retry loading voices after a short delay (Safari loads them late)
-setTimeout(() => { voices = synth.getVoices(); }, 500);
-setTimeout(() => { voices = synth.getVoices(); }, 1500);
 
 function getBestVoice() {
   if (!voices.length) voices = synth.getVoices();
-
-  // If user has manually picked a voice, use that
   const saved = localStorage.getItem('sl_voice_name');
   if (saved) {
     const picked = voices.find(v => v.name === saved);
     if (picked) return picked;
   }
-
-  // Windows Chrome — Google neural voices are best
-  // macOS/iOS — Moira, Karen, Daniel sound most natural
+  // Chrome Windows — Google neural voices are best
   const preferred = [
-    'Google US English',   // Chrome Windows — best quality
+    'Google US English',
     'Google UK English Female',
-    'Moira',               // macOS/iOS Irish — warm
-    'Karen',               // macOS/iOS Australian
-    'Daniel',              // macOS/iOS British
-    'Samantha',            // macOS/iOS US
+    'Moira', 'Karen', 'Daniel', 'Samantha',
   ];
-
   for (const name of preferred) {
     const v = voices.find(v => v.name === name || v.name.includes(name));
     if (v) return v;
   }
-
-  // Final fallbacks — avoid Microsoft robotic voices if possible
+  // Avoid Microsoft robotic voices if anything else exists
   return voices.find(v => v.lang === 'en-US' && !v.name.includes('Microsoft'))
-      || voices.find(v => v.lang === 'en-GB' && !v.name.includes('Microsoft'))
-      || voices.find(v => v.lang === 'en-US')
+      || voices.find(v => v.lang.startsWith('en') && !v.name.includes('Microsoft'))
       || voices.find(v => v.lang.startsWith('en'))
       || null;
 }
 
-/* ── Voice Picker — lets user audition & lock in best voice ── */
-function buildVoicePicker() {
-  const englishVoices = voices.filter(v => v.lang.startsWith('en'));
-  if (!englishVoices.length) return;
+function setSpeakingUI(on) {
+  isSpeaking = on;
+  document.getElementById('speak-btn')?.classList.toggle('speaking', on);
+  document.getElementById('ai-bubble')?.classList.toggle('speaking', on);
+}
 
+async function speakText(text) {
+  if (!synth || !text) return;
+  synth.cancel();
+  await getVoices(); // ensure voices are loaded before speaking
+  setTimeout(() => {
+    setSpeakingUI(true);
+    const utt  = new SpeechSynthesisUtterance(text);
+    utt.lang   = 'en-US';
+    utt.rate   = 0.85;
+    utt.pitch  = 1.0;
+    utt.volume = 1.0;
+    const v    = getBestVoice();
+    if (v) utt.voice = v;
+    utt.onend  = () => setSpeakingUI(false);
+    utt.onerror = () => setSpeakingUI(false);
+    synth.speak(utt);
+  }, 150);
+}
+
+function replaySpeak() {
+  const d = slideData[currentSlide];
+  if (d?.explanation) speakText(d.explanation);
+}
+
+function speakWord(word) {
+  synth.cancel();
+  setTimeout(async () => {
+    await getVoices();
+    const utt = new SpeechSynthesisUtterance(word);
+    utt.rate = 0.80; utt.lang = 'en-US';
+    const v = getBestVoice();
+    if (v) utt.voice = v;
+    synth.speak(utt);
+  }, 100);
+}
+
+/* ════════════════════════════════════════
+   VOICE PICKER
+════════════════════════════════════════ */
+async function toggleVoicePicker() {
   const panel = document.getElementById('voice-panel');
-  if (!panel) return;
-
-  const saved = localStorage.getItem('sl_voice_name') || '';
-
+  if (panel.style.display === 'block') { panel.style.display = 'none'; return; }
+  await getVoices();
+  const englishVoices = voices.filter(v => v.lang.startsWith('en'));
+  const saved = localStorage.getItem('sl_voice_name') || getBestVoice()?.name || '';
   panel.innerHTML = `
-    <div style="font-size:0.75rem;font-weight:800;color:#6b7280;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">
-      🎙️ Choose a voice
-    </div>
-    <select id="voice-select" onchange="previewVoice(this.value)"
+    <div style="font-size:0.75rem;font-weight:800;color:#6b7280;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">🎙️ Choose a voice</div>
+    <select id="voice-select"
       style="width:100%;padding:8px 10px;border-radius:10px;border:2px solid #e5e7eb;
-             font-family:'Nunito',sans-serif;font-size:0.88rem;font-weight:700;
-             color:#1f2937;background:white;cursor:pointer;margin-bottom:8px;">
-      ${englishVoices.map(v =>
-        `<option value="${v.name}" ${v.name === saved ? 'selected' : ''}>
-          ${v.name} (${v.lang})
-        </option>`
-      ).join('')}
+             font-family:'Nunito',sans-serif;font-size:0.88rem;font-weight:700;color:#1f2937;
+             background:white;cursor:pointer;margin-bottom:8px;">
+      ${englishVoices.map(v => `<option value="${v.name}" ${v.name===saved?'selected':''}>${v.name} (${v.lang})</option>`).join('')}
     </select>
     <div style="display:flex;gap:8px;">
       <button onclick="previewVoice(document.getElementById('voice-select').value)"
-        style="flex:1;padding:7px;border-radius:9px;border:2px solid #db2877;
-               background:white;color:#db2877;font-family:'Nunito',sans-serif;
-               font-size:0.82rem;font-weight:800;cursor:pointer;">
+        style="flex:1;padding:7px;border-radius:9px;border:2px solid #db2877;background:white;
+               color:#db2877;font-family:'Nunito',sans-serif;font-size:0.82rem;font-weight:800;cursor:pointer;">
         ▶ Preview
       </button>
       <button onclick="saveVoice(document.getElementById('voice-select').value)"
-        style="flex:1;padding:7px;border-radius:9px;border:none;
-               background:#db2877;color:white;font-family:'Nunito',sans-serif;
-               font-size:0.82rem;font-weight:800;cursor:pointer;">
-        ✓ Use this voice
+        style="flex:1;padding:7px;border-radius:9px;border:none;background:#db2877;color:white;
+               font-family:'Nunito',sans-serif;font-size:0.82rem;font-weight:800;cursor:pointer;">
+        ✓ Use this
       </button>
     </div>
-    <div id="voice-saved-msg" style="font-size:0.75rem;color:#15803d;font-weight:700;
-         margin-top:5px;min-height:16px;"></div>
+    <div id="voice-msg" style="font-size:0.75rem;color:#15803d;font-weight:700;margin-top:5px;min-height:16px;"></div>
   `;
   panel.style.display = 'block';
 }
 
 function previewVoice(name) {
   synth.cancel();
-  const v = voices.find(v => v.name === name);
-  if (!v) return;
+  const v = voices.find(v => v.name === name); if (!v) return;
   const utt = new SpeechSynthesisUtterance("Hi Vivan! I am your StarLearn teacher. Let us learn together today!");
-  utt.voice = v; utt.rate = 0.82; utt.pitch = 1.0; utt.lang = 'en-US';
+  utt.voice = v; utt.rate = 0.85; utt.pitch = 1.0; utt.lang = 'en-US';
   synth.speak(utt);
 }
 
 function saveVoice(name) {
   localStorage.setItem('sl_voice_name', name);
-  const msg = document.getElementById('voice-saved-msg');
-  if (msg) { msg.textContent = '✓ Voice saved!'; setTimeout(() => msg.textContent = '', 2000); }
+  const msg = document.getElementById('voice-msg');
+  if (msg) { msg.textContent = '✓ Voice saved!'; setTimeout(() => msg.textContent='', 2000); }
 }
 
-function toggleVoicePicker() {
-  const panel = document.getElementById('voice-panel');
-  if (!panel) return;
-  if (panel.style.display === 'none' || !panel.style.display) {
-    voices = synth.getVoices();
-    buildVoicePicker();
-  } else {
-    panel.style.display = 'none';
-  }
-}
+/* ════════════════════════════════════════
+   GEMINI — generates ALL slide content as JSON
+   No cache — fresh content every session
+════════════════════════════════════════ */
+async function fetchSlideData(slideIdx) {
+  if (slideData[slideIdx]) return slideData[slideIdx]; // already fetched this session
 
-function setSpeakingUI(speaking) {
-  isSpeaking = speaking;
-  const btn    = document.getElementById('speak-btn');
-  const bubble = document.getElementById('ai-bubble');
-  if (btn)    btn.classList.toggle('speaking', speaking);
-  if (bubble) bubble.classList.toggle('speaking', speaking);
-}
-
-/**
- * speakText — single utterance approach for iPad Safari.
- * Splitting into sentences causes unnatural gaps on Safari.
- * One utterance with rate 0.82 sounds much more natural.
- */
-function speakText(text) {
-  if (!synth || !text) return;
-  synth.cancel();
-
-  setTimeout(() => {
-    setSpeakingUI(true);
-    const utt   = new SpeechSynthesisUtterance(text);
-    utt.lang    = 'en-US';
-    utt.rate    = 0.82;
-    utt.pitch   = 1.0;
-    utt.volume  = 1.0;
-    const voice = getBestVoice();
-    if (voice) utt.voice = voice;
-    utt.onend   = () => setSpeakingUI(false);
-    utt.onerror = () => setSpeakingUI(false);
-    synth.speak(utt);
-  }, 200);
-}
-
-function replaySpeak() {
-  const text = slideTexts[currentSlide];
-  if (text) speakText(text);
-}
-
-function speakWord(word) {
-  synth.cancel();
-  setTimeout(() => {
-    const utt   = new SpeechSynthesisUtterance(word);
-    utt.rate    = 0.80;
-    utt.pitch   = 1.0;
-    utt.lang    = 'en-US';
-    const voice = getBestVoice();
-    if (voice) utt.voice = voice;
-    synth.speak(utt);
-  }, 100);
-}
-
-/* ══════════════════════════════════════════
-   GEMINI — via Supabase Edge Function (ai-proxy)
-   Works from any real HTTP origin (GitHub Pages, Netlify).
-   Uses the paid quota key, same as the main StarLearn app.
-══════════════════════════════════════════ */
-async function fetchExplanation(slideIdx) {
-  const cacheKey = `ela_slide_${slideIdx}_${getTodayDate()}`;
-  const cached   = localStorage.getItem(cacheKey);
-  if (cached) {
-    slideTexts[slideIdx] = cached;
-    return cached;
-  }
-
-  const prompt = SLIDES[slideIdx].geminiPrompt;
+  const tmpl = SLIDE_TEMPLATES[slideIdx];
 
   try {
     const res = await fetch(SUPABASE_URL + '/functions/v1/ai-proxy', {
@@ -608,166 +395,158 @@ async function fetchExplanation(slideIdx) {
       },
       body: JSON.stringify({
         model: 'gemini-2.0-flash',
-        max_tokens: 300,
-        system: 'You are a warm, friendly primary school teacher. Respond with ONLY the spoken explanation — no headings, no bullet points, no markdown, no asterisks. Just natural flowing sentences as if speaking aloud to a child.',
-        messages: [{ role: 'user', content: prompt }],
+        max_tokens: 500,
+        system: 'You are a JSON generator for a children\'s educational app. Return ONLY a valid JSON object — no markdown fences, no backticks, no explanation, just raw JSON.',
+        messages: [{ role: 'user', content: tmpl.aiPrompt }],
       }),
     });
 
-    if (!res.ok) {
-      const errText = await res.text();
-      console.warn('Gemini API error:', res.status, errText);
-      throw new Error(`HTTP ${res.status}`);
-    }
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const raw  = await res.json();
+    let text   = raw.content?.find(b => b.type === 'text')?.text?.trim() || '';
+    // Strip any accidental markdown fences
+    text = text.replace(/^```json\s*/i,'').replace(/^```\s*/,'').replace(/```\s*$/,'').trim();
+    const json = JSON.parse(text);
+    // Sanitise — ensure all keys exist
+    const data = {
+      explanation: json.explanation || '',
+      chips:       Array.isArray(json.chips) ? json.chips : [],
+      example:     json.example || '',
+      highlights:  Array.isArray(json.highlights) ? json.highlights : [],
+      tip:         json.tip || '',
+    };
+    slideData[slideIdx] = data;
+    return data;
 
-    const data = await res.json();
-    const text = data.content?.find(b => b.type === 'text')?.text?.trim() || '';
-
-    if (text) {
-      // Clean up any stray markdown that slips through
-      const clean = text.replace(/\*\*/g, '').replace(/\*/g, '').replace(/#+\s/g, '').trim();
-      slideTexts[slideIdx] = clean;
-      localStorage.setItem(cacheKey, clean);
-      return clean;
-    }
   } catch(e) {
-    console.warn('Gemini fetch failed:', e.message);
+    console.warn('Gemini fetch failed for slide', slideIdx, e.message);
+    // Rich fallbacks so the lesson still works
+    const fallbacks = [
+      { explanation:"Welcome Vivan! Today we are going to learn about four special types of words that make English work — nouns, verbs, adjectives, and adverbs. Every single word in a sentence has a job to do, and knowing those jobs will make you a reading and writing superstar!", chips:["dog","run","big","fast","park","eat"], example:"The big dog runs fast in the park.", highlights:["big","fast"], tip:"💡 Think of words like workers in a team — each one has its own special job!" },
+      { explanation:"A noun is a word that names a person, a place, an animal, or a thing. Your name Vivan is a noun! The word school is a noun. Pizza is a noun! Nouns are everywhere — they are the names we give to everything around us.", chips:["Vivan","pizza","lion","school","India","rocket"], example:"Vivan ate pizza near the school.", highlights:["Vivan","pizza","school"], tip:"💡 Trick: ask yourself 'can I touch it or see it?' — if yes, it's probably a noun!" },
+      { explanation:"A verb is an action word — it tells us what someone or something is doing. When you jump, run, eat, or laugh, those are all verbs! Even thinking and sleeping are verbs because they are things you do.", chips:["jump","crash","giggle","fly","eat","sleep"], example:"The monkey giggled and jumped over the log.", highlights:["giggled","jumped"], tip:"💡 Trick: ask 'what is happening?' and the answer is always the verb!" },
+      { explanation:"An adjective is a describing word — it tells us more about a noun. Instead of just saying 'a dog' we can say 'a fluffy golden dog'. The words fluffy and golden are adjectives! They make sentences much more interesting and colourful.", chips:["fluffy","golden","tiny","spicy","loud","freezing"], example:"The tiny fluffy rabbit ate a spicy carrot.", highlights:["tiny","fluffy","spicy"], tip:"💡 Trick: adjectives always sit next to or near the noun they describe!" },
+      { explanation:"An adverb tells us more about a verb — usually HOW, WHEN, or WHERE something happens. If you run quickly, the word quickly is the adverb. Most adverbs end in -ly which makes them easy to spot! Amazing work today Vivan — you have learned all four word types and the quiz is up next!", chips:["quickly","loudly","gently","never","always","here"], example:"She gently picked up the baby and quietly sang.", highlights:["gently","quietly"], tip:"💡 Trick: most adverbs end in -LY. Quick→quickly, Loud→loudly, Gentle→gently!" },
+    ];
+    slideData[slideIdx] = fallbacks[slideIdx] || fallbacks[0];
+    return slideData[slideIdx];
   }
-
-  // Fallback — at least something meaningful per slide
-  const fallbacks = [
-    'Welcome, Vivan! Today we are going to learn about four important types of words that make English make sense. Every word in a sentence has a special job, and by the end of this lesson you will know exactly what those jobs are!',
-    'A noun is a word that names a person, a place, or a thing. Words like dog, school, park, and even your name Vivan are all nouns. Here is a trick — if you can say "the" in front of a word, it is usually a noun. The dog. The park. The school. See how that works?',
-    'A verb is an action word — it tells us what someone is doing. Words like ran, jumped, and ate are all verbs. If you ask yourself "what is happening in this sentence?", the answer is always the verb!',
-    'An adjective is a word that describes a noun and makes it more interesting. Instead of just "a dog", we can say "a big fluffy dog". Big and fluffy are adjectives. They sit right next to the noun they are describing.',
-    'An adverb describes a verb and tells us how, when, or where something happens. Words like quickly and loudly are adverbs. Here is a great trick — most adverbs end in the letters L-Y. Quick becomes quickly. Loud becomes loudly. Now you know all four word types. Amazing work, Vivan!',
-  ];
-  const fallback = fallbacks[slideIdx] || `Let us learn about ${SLIDES[slideIdx].title}. Study the examples carefully and you will do great in the quiz!`;
-  slideTexts[slideIdx] = fallback;
-  return fallback;
 }
 
-function getTodayDate() {
-  return new Date().toISOString().slice(0, 10);
-}
-
-/* ══════════════════════════════════════════
+/* ════════════════════════════════════════
    RENDER
-══════════════════════════════════════════ */
+════════════════════════════════════════ */
 function renderDots() {
-  const row = document.getElementById('dots-row');
-  row.innerHTML = SLIDES.map((_, i) =>
-    `<div class="dot${i === currentSlide ? ' active' : ''}"></div>`
+  document.getElementById('dots-row').innerHTML = SLIDE_TEMPLATES.map((_,i) =>
+    `<div class="dot${i===currentSlide?' active':''}"></div>`
   ).join('');
 }
 
+function buildHighlightedSentence(sentence, highlights, markBg, markColor) {
+  if (!highlights.length) return sentence;
+  let result = sentence;
+  highlights.forEach(word => {
+    // case-insensitive whole-word replace
+    const re = new RegExp(`\\b(${word})\\b`, 'gi');
+    result = result.replace(re, `<mark style="background:${markBg};color:${markColor};">$1</mark>`);
+  });
+  return result;
+}
+
 async function renderCurrentSlide() {
-  const s      = SLIDES[currentSlide];
+  const tmpl   = SLIDE_TEMPLATES[currentSlide];
   const scroll = document.getElementById('slide-scroll');
-  const counter = document.getElementById('slide-counter');
-  const btnBack = document.getElementById('btn-back');
-  const btnNext = document.getElementById('btn-next');
 
-  counter.textContent = `${currentSlide + 1} of ${SLIDES.length}`;
-  btnBack.disabled    = currentSlide === 0;
-  btnNext.textContent = s.isLast ? '🎯 Start Quiz →' : 'Next →';
-
+  document.getElementById('slide-counter').textContent = `${currentSlide+1} of ${SLIDE_TEMPLATES.length}`;
+  document.getElementById('btn-back').disabled = currentSlide === 0;
+  document.getElementById('btn-next').textContent = tmpl.isLast ? '🎯 Start Quiz →' : 'Next →';
   renderDots();
 
-  const chipHtml = s.chips?.length
-    ? `<div class="chip-row">${s.chips.map(c =>
-        `<span class="chip" style="background:${s.chipBg};color:${s.chipColor};"
-          onclick="speakWord('${c}')">${c}</span>`
-      ).join('')}</div>`
-    : '';
-
-  const exHtml = s.example
-    ? `<div class="example-card" style="background:${s.example.bg};">
-        <div class="example-label">Example sentence</div>
-        <div class="example-text">${s.example.sentence}</div>
-       </div>`
-    : '';
-
-  const tipHtml = s.tip
-    ? `<div class="tip-box" style="background:${s.tip.bg};color:${s.tip.color};">${s.tip.text}</div>`
-    : '';
-
-  const ctaHtml = s.isLast
-    ? `<div class="cta-card">
-        <h2>You are ready, Vivan! 🌟</h2>
-        <p>You have learned all 4 word types. Now let us see how much you remember!</p>
-       </div>`
-    : '';
-
-  // Show loading state first
+  // Show loading skeleton immediately
   scroll.innerHTML = `
     <div class="slide-card">
-      <span class="slide-badge" style="background:${s.badgeBg};color:${s.badgeColor};">${s.badge}</span>
-      <div class="slide-title">${s.title}</div>
-      <div class="slide-subtitle">${s.subtitle}</div>
+      <span class="slide-badge" style="background:${tmpl.badgeBg};color:${tmpl.badgeColor};">${tmpl.badge}</span>
+      <div class="slide-title">${tmpl.title}</div>
+      <div class="slide-subtitle">${tmpl.subtitle}</div>
       <div class="ai-bubble" id="ai-bubble">
         <div class="ai-loading">
           <div class="dot-pulse"><span></span><span></span><span></span></div>
-          Getting your lesson ready…
+          Preparing your lesson…
         </div>
       </div>
-      ${chipHtml}
-      ${exHtml}
-      ${tipHtml}
+      <div class="chip-row" id="chip-row"></div>
+      <div id="example-area"></div>
+      <div id="tip-area"></div>
     </div>
-    ${ctaHtml}
+    ${tmpl.isLast ? `<div class="cta-card"><h2>You are ready, Vivan! 🌟</h2><p>You have learned all 4 word types. The quiz is next!</p></div>` : ''}
   `;
 
-  // Stop any current speech
-  synth && synth.cancel();
+  synth?.cancel();
 
-  // Fetch or use cached
-  let text = slideTexts[currentSlide];
-  if (!text) {
-    text = await fetchExplanation(currentSlide);
-  }
+  // Fetch AI content
+  const data = await fetchSlideData(currentSlide);
+  const t    = tmpl.theme;
 
+  // Update bubble
   const bubble = document.getElementById('ai-bubble');
-  if (bubble) {
-    bubble.innerHTML = '';
-    bubble.textContent = text;
+  if (bubble) { bubble.innerHTML = ''; bubble.textContent = data.explanation; }
+
+  // Update chips
+  const chipRow = document.getElementById('chip-row');
+  if (chipRow && data.chips.length) {
+    chipRow.innerHTML = data.chips.map(c =>
+      `<span class="chip" style="background:${t.chipBg};color:${t.chipColor};"
+        onclick="speakWord('${c.replace(/'/g,"\\'")}'">${c}</span>`
+    ).join('');
   }
 
-  // Speak with natural sentence-by-sentence approach
-  speakText(text);
+  // Update example
+  const exArea = document.getElementById('example-area');
+  if (exArea && data.example) {
+    const highlighted = buildHighlightedSentence(data.example, data.highlights, t.markBg, t.markColor);
+    exArea.innerHTML = `
+      <div class="example-card" style="background:${t.exBg};">
+        <div class="example-label">Example sentence</div>
+        <div class="example-text">${highlighted}</div>
+      </div>`;
+  }
+
+  // Update tip
+  const tipArea = document.getElementById('tip-area');
+  if (tipArea && data.tip) {
+    tipArea.innerHTML = `<div class="tip-box" style="background:${t.tipBg};color:${t.tipColor};">${data.tip}</div>`;
+  }
+
+  // Pre-fetch next slide in background
+  if (currentSlide + 1 < SLIDE_TEMPLATES.length) {
+    fetchSlideData(currentSlide + 1);
+  }
+
+  // Speak
+  speakText(data.explanation);
 }
 
-/* ══════════════════════════════════════════
+/* ════════════════════════════════════════
    NAVIGATION
-══════════════════════════════════════════ */
+════════════════════════════════════════ */
 function goSlide(dir) {
-  synth && synth.cancel();
+  synth?.cancel();
   setSpeakingUI(false);
   const next = currentSlide + dir;
   if (next < 0) return;
-  if (next >= SLIDES.length) {
+  if (next >= SLIDE_TEMPLATES.length) {
     alert('Quiz starting! (Will launch the ELA quiz in the full app)');
     return;
   }
   currentSlide = next;
-
-  // Pre-fetch next slide in background
-  if (currentSlide + 1 < SLIDES.length && !slideTexts[currentSlide + 1]) {
-    fetchExplanation(currentSlide + 1);
-  }
-
   renderCurrentSlide();
 }
 
-/* ══════════════════════════════════════════
+/* ════════════════════════════════════════
    INIT
-══════════════════════════════════════════ */
-document.getElementById('topic-pill').textContent = `📖 ${TOPIC.name} · ${TOPIC.day}`;
-
-// Pre-fetch first two slides in background
-fetchExplanation(0);
-fetchExplanation(1);
-
+════════════════════════════════════════ */
+document.getElementById('topic-pill').textContent = '📖 Nouns, Verbs, Adjectives & Adverbs';
+getVoices(); // start loading voices immediately
 renderCurrentSlide();
 </script>
 </body>
