@@ -274,10 +274,23 @@ body {
 
 <div class="app-header">
   <div class="logo-text">⭐ StarLearn</div>
-  <div class="topic-pill" id="topic-pill">📖 English · Monday</div>
+  <div style="display:flex;gap:8px;align-items:center;">
+    <button onclick="toggleVoicePicker()"
+      style="background:rgba(255,255,255,0.22);border:none;border-radius:99px;
+             padding:5px 12px;color:white;font-family:'Nunito',sans-serif;
+             font-size:0.78rem;font-weight:700;cursor:pointer;">
+      🎙️ Voice
+    </button>
+    <div class="topic-pill" id="topic-pill">📖 English · Monday</div>
+  </div>
 </div>
 
 <div class="dots-row" id="dots-row"></div>
+
+<!-- Voice picker panel — hidden by default -->
+<div id="voice-panel" style="display:none;background:white;margin:0 16px 10px;
+  border-radius:16px;padding:14px 16px;box-shadow:0 2px 12px rgba(0,0,0,0.08);">
+</div>
 
 <div class="slide-scroll" id="slide-scroll">
   <!-- slides rendered here -->
@@ -393,38 +406,132 @@ let voices       = [];
 let isSpeaking   = false;
 
 /* ══════════════════════════════════════════
-   VOICE SETUP — naturalness fix
-   Uses speakSequence approach: splits on sentence boundaries
-   so the browser engine handles each sentence cleanly,
-   avoiding the robotic run-on effect.
+   VOICE SETUP — iPad Safari optimised
+   Key insight: on iPad Safari the best sounding voices are
+   the "enhanced" en-GB or en-AU neural voices (Moira, Tessa,
+   Karen, Daniel). en-US Samantha is available but sounds more
+   robotic than the others on iOS 16+.
+   Strategy:
+   1. Prefer named high-quality neural voices by priority list
+   2. Speak the WHOLE paragraph as ONE utterance (not split)
+      — splitting causes unnatural gaps on Safari
+   3. Rate 0.82, pitch 1.0 — sounds most natural on iPad
+   4. Let voices load async (Safari loads them late)
 ══════════════════════════════════════════ */
 function loadVoices() {
   voices = synth.getVoices();
 }
 loadVoices();
-if (synth.onvoiceschanged !== undefined) synth.onvoiceschanged = loadVoices;
+if (synth.onvoiceschanged !== undefined) {
+  synth.onvoiceschanged = () => { voices = synth.getVoices(); };
+}
+
+// Also retry loading voices after a short delay (Safari loads them late)
+setTimeout(() => { voices = synth.getVoices(); }, 500);
+setTimeout(() => { voices = synth.getVoices(); }, 1500);
 
 function getBestVoice() {
-  // Priority: Samantha (macOS/iOS) → Google US English (Chrome) → any en-US → any English
-  return voices.find(v => v.name === 'Samantha')
-      || voices.find(v => v.name.includes('Google US English'))
-      || voices.find(v => v.lang === 'en-US' && !v.localService)
+  if (!voices.length) voices = synth.getVoices();
+
+  // If user has manually picked a voice, use that
+  const saved = localStorage.getItem('sl_voice_name');
+  if (saved) {
+    const picked = voices.find(v => v.name === saved);
+    if (picked) return picked;
+  }
+
+  // Windows Chrome — Google neural voices are best
+  // macOS/iOS — Moira, Karen, Daniel sound most natural
+  const preferred = [
+    'Google US English',   // Chrome Windows — best quality
+    'Google UK English Female',
+    'Moira',               // macOS/iOS Irish — warm
+    'Karen',               // macOS/iOS Australian
+    'Daniel',              // macOS/iOS British
+    'Samantha',            // macOS/iOS US
+  ];
+
+  for (const name of preferred) {
+    const v = voices.find(v => v.name === name || v.name.includes(name));
+    if (v) return v;
+  }
+
+  // Final fallbacks — avoid Microsoft robotic voices if possible
+  return voices.find(v => v.lang === 'en-US' && !v.name.includes('Microsoft'))
+      || voices.find(v => v.lang === 'en-GB' && !v.name.includes('Microsoft'))
       || voices.find(v => v.lang === 'en-US')
       || voices.find(v => v.lang.startsWith('en'))
       || null;
 }
 
-/**
- * Split text into sentences for naturalness.
- * Each sentence gets its own utterance so the engine
- * applies proper prosody at sentence boundaries.
- */
-function splitSentences(text) {
-  // Split on . ! ? followed by space or end-of-string
-  return text.match(/[^.!?]+[.!?]*/g)
-             ?.map(s => s.trim())
-             .filter(s => s.length > 0)
-         || [text];
+/* ── Voice Picker — lets user audition & lock in best voice ── */
+function buildVoicePicker() {
+  const englishVoices = voices.filter(v => v.lang.startsWith('en'));
+  if (!englishVoices.length) return;
+
+  const panel = document.getElementById('voice-panel');
+  if (!panel) return;
+
+  const saved = localStorage.getItem('sl_voice_name') || '';
+
+  panel.innerHTML = `
+    <div style="font-size:0.75rem;font-weight:800;color:#6b7280;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">
+      🎙️ Choose a voice
+    </div>
+    <select id="voice-select" onchange="previewVoice(this.value)"
+      style="width:100%;padding:8px 10px;border-radius:10px;border:2px solid #e5e7eb;
+             font-family:'Nunito',sans-serif;font-size:0.88rem;font-weight:700;
+             color:#1f2937;background:white;cursor:pointer;margin-bottom:8px;">
+      ${englishVoices.map(v =>
+        `<option value="${v.name}" ${v.name === saved ? 'selected' : ''}>
+          ${v.name} (${v.lang})
+        </option>`
+      ).join('')}
+    </select>
+    <div style="display:flex;gap:8px;">
+      <button onclick="previewVoice(document.getElementById('voice-select').value)"
+        style="flex:1;padding:7px;border-radius:9px;border:2px solid #db2877;
+               background:white;color:#db2877;font-family:'Nunito',sans-serif;
+               font-size:0.82rem;font-weight:800;cursor:pointer;">
+        ▶ Preview
+      </button>
+      <button onclick="saveVoice(document.getElementById('voice-select').value)"
+        style="flex:1;padding:7px;border-radius:9px;border:none;
+               background:#db2877;color:white;font-family:'Nunito',sans-serif;
+               font-size:0.82rem;font-weight:800;cursor:pointer;">
+        ✓ Use this voice
+      </button>
+    </div>
+    <div id="voice-saved-msg" style="font-size:0.75rem;color:#15803d;font-weight:700;
+         margin-top:5px;min-height:16px;"></div>
+  `;
+  panel.style.display = 'block';
+}
+
+function previewVoice(name) {
+  synth.cancel();
+  const v = voices.find(v => v.name === name);
+  if (!v) return;
+  const utt = new SpeechSynthesisUtterance("Hi Vivan! I am your StarLearn teacher. Let us learn together today!");
+  utt.voice = v; utt.rate = 0.82; utt.pitch = 1.0; utt.lang = 'en-US';
+  synth.speak(utt);
+}
+
+function saveVoice(name) {
+  localStorage.setItem('sl_voice_name', name);
+  const msg = document.getElementById('voice-saved-msg');
+  if (msg) { msg.textContent = '✓ Voice saved!'; setTimeout(() => msg.textContent = '', 2000); }
+}
+
+function toggleVoicePicker() {
+  const panel = document.getElementById('voice-panel');
+  if (!panel) return;
+  if (panel.style.display === 'none' || !panel.style.display) {
+    voices = synth.getVoices();
+    buildVoicePicker();
+  } else {
+    panel.style.display = 'none';
+  }
 }
 
 function setSpeakingUI(speaking) {
@@ -436,35 +543,27 @@ function setSpeakingUI(speaking) {
 }
 
 /**
- * speakSequence — the naturalness fix.
- * Queues sentences one at a time using onend chaining.
- * Much more natural than a single long utterance.
+ * speakText — single utterance approach for iPad Safari.
+ * Splitting into sentences causes unnatural gaps on Safari.
+ * One utterance with rate 0.82 sounds much more natural.
  */
-function speakSequence(sentences, idx) {
-  if (idx >= sentences.length) { setSpeakingUI(false); return; }
-  if (idx === 0) setSpeakingUI(true);
-
-  const utt   = new SpeechSynthesisUtterance(sentences[idx]);
-  utt.lang    = 'en-US';
-  utt.rate    = 0.88;
-  utt.pitch   = 1.05;
-  const voice = getBestVoice();
-  if (voice) utt.voice = voice;
-
-  utt.onend   = () => speakSequence(sentences, idx + 1);
-  utt.onerror = () => { setSpeakingUI(false); };
-
-  synth.speak(utt);
-}
-
 function speakText(text) {
   if (!synth || !text) return;
   synth.cancel();
-  // Small delay ensures cancel() has flushed before new utterances queue
+
   setTimeout(() => {
-    const sentences = splitSentences(text);
-    speakSequence(sentences, 0);
-  }, 150);
+    setSpeakingUI(true);
+    const utt   = new SpeechSynthesisUtterance(text);
+    utt.lang    = 'en-US';
+    utt.rate    = 0.82;
+    utt.pitch   = 1.0;
+    utt.volume  = 1.0;
+    const voice = getBestVoice();
+    if (voice) utt.voice = voice;
+    utt.onend   = () => setSpeakingUI(false);
+    utt.onerror = () => setSpeakingUI(false);
+    synth.speak(utt);
+  }, 200);
 }
 
 function replaySpeak() {
@@ -476,12 +575,13 @@ function speakWord(word) {
   synth.cancel();
   setTimeout(() => {
     const utt   = new SpeechSynthesisUtterance(word);
-    utt.rate    = 0.82;
+    utt.rate    = 0.80;
+    utt.pitch   = 1.0;
     utt.lang    = 'en-US';
     const voice = getBestVoice();
     if (voice) utt.voice = voice;
     synth.speak(utt);
-  }, 80);
+  }, 100);
 }
 
 /* ══════════════════════════════════════════
